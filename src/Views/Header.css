@@ -1,0 +1,263 @@
+/* Global Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body, html, #root {
+  width: 100%;
+  min-height: 100vh; /* Use min-height for full viewport height, allows content to grow */
+  overflow-x: hidden; /* Prevent horizontal scrolling */
+  font-family: 'Inter', sans-serif;
+}
+
+/* Background Container */
+.landing-container {
+  background-image: url('../assets/bg-header.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh; /* Ensure it covers at least the full viewport height */
+  display: flex;
+  flex-direction: column;
+  color: white;
+  padding: 0;
+  margin: 0;
+  /* Removed overflow: hidden here as it might hide content if not carefully managed.
+     Let flexbox and other properties handle layout. */
+}
+
+/* Navbar Styling */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  width: 100%;
+  max-width: 100%;
+  flex-shrink: 0; /* Prevent navbar from shrinking */
+}
+
+/* Logo & Nav Links */
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.brand-name {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #ffb300;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+}
+
+.nav-links a {
+  color: white;
+  text-decoration: none;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #ffb300;
+}
+
+/* Language Selector */
+.language-selector {
+  background-color: transparent;
+  color: white;
+  border: 1px solid #ffb300;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  cursor: pointer;
+  appearance: none; /* Removes default dropdown arrow */
+  background-image: url('data:image/svg+xml;utf8,<svg fill="white" height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg"><path d="M7 10l5 5 5-5z"/><path d="M0 0h24v24H0z" fill="none"/></svg>'); /* Custom arrow */
+  background-repeat: no-repeat;
+  background-position: right 0.5rem center;
+  padding-right: 2.5rem; /* Space for the custom arrow */
+}
+
+.language-selector:focus {
+  outline: none;
+  border-color: #d48800;
+}
+
+.language-selector option {
+  background-color: #333; /* Darker background for options */
+  color: white;
+}
+
+/* Buttons */
+.get-started-btn,
+.register-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.get-started-btn {
+  border: 2px solid #ffb300;
+  padding: 8px 16px;
+  border-radius: 20px;
+  background: transparent;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.get-started-btn:hover {
+  background: #ffb300;
+  color: black;
+}
+
+.register-btn {
+  background-color: #ffb300;
+  color: black;
+  font-weight: 600;
+  padding: 12px 24px;
+  border-radius: 24px;
+  border: none;
+  cursor: pointer;
+  margin-top: 20rem; /* Increased from 2rem */
+  position: relative;
+  z-index: 2;
+}
+
+.register-btn:hover {
+  background-color: #d48800;
+  color: white;
+}
+
+
+/* Header Action (buttons and selector) */
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+
+/* Hero Section - RESPONSIVE UPDATES */
+.hero-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  flex-grow: 1; /* Allow hero text to take up remaining space */
+  padding: 2rem 5vw; /* Use viewport units for dynamic horizontal padding */
+  box-sizing: border-box; /* Crucial: Include padding in width calculation */
+  max-width: 900px; /* Limit max width for readability on very large screens */
+  margin: 0 auto; /* Center the hero text block */
+  z-index: 2; /* Keep it above other elements if applicable */
+}
+
+.hero-heading {
+  /* Responsive font size: min 2rem, scales with viewport width, max 4rem */
+  font-size: clamp(2rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.2; /* Adjust line height for better readability of multi-line text */
+  margin-bottom: 1rem;
+  /* REMOVED: margin-top: -20rem; -- this was causing text to go off-screen */
+  word-wrap: break-word; /* Ensure long words break and wrap */
+  overflow-wrap: break-word; /* Modern equivalent */
+}
+
+.hero-subtext {
+  /* Responsive font size: min 1rem, scales with viewport width, max 1.5rem */
+  font-size: clamp(1rem, 2.5vw, 1.5rem);
+  line-height: 1.5;
+  margin-bottom: 1rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+.highlight-text {
+  font-size: clamp(1.2rem, 3vw, 2rem); /* Keep this responsive too */
+  font-weight: bold;
+  color: #ffb300;
+  margin-bottom: 1.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+/* Assuming hero-tagline is used similar to highlight-text for styling */
+.hero-tagline {
+  font-size: clamp(1.2rem, 3vw, 2rem);
+  font-weight: bold;
+  color: #ffb300;
+  margin-bottom: 1.5rem;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+}
+
+
+/* Coming Soon */
+.app-coming {
+  margin-top: 2.5rem; /* Increased from 1.5rem */
+  font-style: italic;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+
+/* Media Queries for smaller screens (optional, but good for fine-tuning) */
+@media (max-width: 768px) {
+  .navbar {
+    flex-direction: column; /* Stack items on small screens */
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+  }
+
+  .header-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+    width: 100%;
+    align-items: center;
+  }
+
+  .get-started-btn {
+    width: 100%; /* Full width button */
+  }
+
+  .language-selector {
+    width: 100%; /* Full width dropdown */
+  }
+
+  .hero-text {
+    padding: 1rem 3vw; /* Slightly less horizontal padding on very small screens */
+  }
+
+  .hero-heading {
+    font-size: clamp(1.8rem, 7vw, 3.5rem); /* Adjust clamp for smaller screens if needed */
+  }
+
+  .hero-subtext {
+    font-size: clamp(0.9rem, 3.5vw, 1.2rem);
+  }
+}
+
+@media (max-width: 480px) {
+  .brand-name {
+    font-size: 1.3rem;
+  }
+  .nav-links a {
+    font-size: 0.9rem;
+  }
+}
