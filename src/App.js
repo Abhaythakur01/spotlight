@@ -1,13 +1,26 @@
-// src/App.js
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
+// Import Outlet from react-router-dom to handle nested layouts
+import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider, useAuth } from './AuthContext';
 import Header from './Views/Header';
 import HomePage from './Views/HomePage';
-import Login from './components/Login';
-import Signup from './components/Signup';
+import Dashboard from './Views/Dashboard';
+import AuthPage from './Views/AuthPage';
 import './App.css';
 import './i18n';
+
+/**
+ * A layout component that includes the Header.
+ * Any route nested inside this component will render with the Header.
+ * The <Outlet /> component is a placeholder where the actual page component (e.g., HomePage) will be rendered.
+ */
+const MainLayout = () => (
+  <>
+    <Header />
+    <Outlet />
+  </>
+);
+
 
 export default function App() {
   return (
@@ -20,7 +33,7 @@ export default function App() {
 }
 
 function AppContent() {
-  const { currentUser, authLoading, logout, userId } = useAuth();
+  const { currentUser, authLoading } = useAuth();
 
   if (authLoading) {
     return (
@@ -35,30 +48,23 @@ function AppContent() {
 
   return (
     <div className="App">
-      <Header />
       <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/login" element={!currentUser ? <Login /> : <Navigate to="/" />} />
-        <Route path="/signup" element={!currentUser ? <Signup /> : <Navigate to="/" />} />
+        {/* UPDATE: Routes that should have the header are now nested inside the MainLayout.
+          This ensures the header is only present on these pages.
+        */}
+        <Route element={<MainLayout />}>
+          <Route path="/" element={currentUser ? <Dashboard /> : <HomePage />} />
+          {/* You can add other pages that need a header here, e.g., <Route path="/blog" element={<BlogPage />} /> */}
+        </Route>
+
+        {/* The authentication page route is outside the MainLayout, so it will NOT have the header.
+          This prevents the "page below" issue.
+        */}
+        <Route path="/auth" element={!currentUser ? <AuthPage /> : <Navigate to="/" />} />
+        
+        {/* A fallback route to navigate home if no other route matches */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
-
-      <div className="fixed bottom-4 right-4 p-3 bg-gray-800 text-white rounded-lg shadow-lg z-50">
-        {currentUser ? (
-          <div className="flex flex-col items-end">
-            <p className="text-sm font-bold">Logged in as: {currentUser.email}</p>
-            <p className="text-xs text-gray-400">User ID: {userId}</p>
-            <button
-              onClick={logout}
-              className="mt-2 bg-red-600 hover:bg-red-700 text-white text-sm py-1 px-3 rounded transition duration-200"
-            >
-              Logout
-            </button>
-          </div>
-        ) : (
-          <p className="text-sm">Not logged in.</p>
-        )}
-      </div>
     </div>
   );
 }

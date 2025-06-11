@@ -1,16 +1,17 @@
-// src/Views/HomePage.js
-import React, { useState } from 'react';
-import './HomePage.css'; // Path relative to src/Views/
+import React from 'react';
+import './HomePage.css';
 import { useTranslation } from 'react-i18next';
+import AuthSection from '../components/AuthSection'; // Import the new component
 
 function HomePage() {
-  const [isBlue, setIsBlue] = useState(false);
   const { t } = useTranslation();
 
-  const toggleColor = () => setIsBlue(!isBlue);
-
   return (
-    <div className={`cafe-homepage ${isBlue ? 'blue-theme' : ''}`}>
+    // Use a main container for the entire non-header content of the homepage
+    <main className="homepage-content">
+      
+      {/* This section remains for your "Why Spotlight?" content.
+          It will now have its own dark background, separate from the hero image. */}
       <section id="why-spotlight" className="why-spotlight-section">
         <h2 className="section-title">{t('whySpotlightTitle')}</h2>
         <div className="spotlight-description-content">
@@ -20,7 +21,11 @@ function HomePage() {
           <p>{t('spotlightBrief4')}</p>
         </div>
       </section>
-    </div>
+      
+      {/* The authentication section is now a distinct part of the page flow */}
+      <AuthSection />
+
+    </main>
   );
 }
 export default HomePage;

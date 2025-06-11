@@ -1,32 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <!-- Simplified Content Security Policy (CSP) for i18next -->
-    <!-- We no longer need extensive permissions for Google Translate external scripts -->
-    <meta http-equiv="Content-Security-Policy" content="
-    default-src 'self';
-    script-src 'self' 'unsafe-inline';
-    img-src 'self' data:;
-    style-src 'self' 'unsafe-inline';
-    connect-src 'self';
-    frame-src 'none';
-">
-    
-    <meta charset="UTF-8" />
-    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8" />
+    <!-- UPDATE: Changed favicon to point to a custom logo -->
+    <link rel="icon" href="%PUBLIC_URL%/spotlight-favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
-    <meta name="description" content="Webcafe AI - AI-driven web applications" />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <meta
+      name="description"
+      content="Spotlight - The Performing Arts Platform"
+    />
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; connect-src 'self' https://identitytoolkit.googleapis.com https://firestore.googleapis.com; script-src 'self'; style-src 'self' 'unsafe-inline';">
+
+    <!-- UPDATE: Changed apple-touch-icon to a custom logo -->
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/spotlight-logo192.png" />
+    
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+
+    <!-- UPDATE: Changed the title of the app -->
     <title>Spotlight</title>
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
-    
-    <!-- The div for Google Translate widget is removed here as it's no longer used -->
-    <!-- The Google Translate script was also removed from App.js/index.js -->
-    
     <div id="root"></div>
   </body>
 </html>

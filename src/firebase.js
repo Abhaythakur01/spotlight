@@ -8,7 +8,6 @@ import { getAuth } from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 
 // Your web app's Firebase configuration
-// These should be set up as environment variables in your .env file
 const firebaseConfig = {
     apiKey: process.env.REACT_APP_API_KEY,
     authDomain: process.env.REACT_APP_AUTH_DOMAIN,
@@ -19,11 +18,17 @@ const firebaseConfig = {
     measurementId: process.env.REACT_APP_MEASUREMENT_ID
 };
 
+// --- DEBUGGING STEP ---
+// This will print your API key to the browser console.
+// If it prints "undefined", your .env file is not being read correctly.
+console.log("Firebase API Key:", process.env.REACT_APP_API_KEY);
+
+
 // Initialize Firebase App
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase services
-const auth = getAuth(app);       // Get the Authentication service instance
+const auth = getAuth(app);      // Get the Authentication service instance
 const db = getFirestore(app);   // Get the Firestore database service instance
 const analytics = getAnalytics(app); // Analytics (already present)
 

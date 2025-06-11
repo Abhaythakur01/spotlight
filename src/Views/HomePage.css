@@ -1,64 +1,32 @@
-/* src/Views/HomePage.css */
-.cafe-homepage {
+/* Container for all content below the header on the homepage */
+.homepage-content {
+    width: 100%;
+    /* A base dark color for the entire page content area */
+    background-color: #111; 
+}
+
+/* Styling for your "Why Spotlight?" section */
+.why-spotlight-section {
+    padding: 5rem 2rem;
     text-align: center;
-    padding: 0px;
-    /* You might want a background or min-height for this container too */
-    min-height: 100vh; /* Example: ensure it takes up full viewport height if it's a primary page */
-    background-color: #f8f8f8; /* Example background color */
-    color: #333; /* Example text color */
+    color: #fff;
+    background-color: #1a1a1d; /* A slightly different dark shade to stand out */
+}
+
+.section-title {
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    color: #fca311; /* Gold/yellow accent */
+    margin-bottom: 2.5rem;
+}
+
+.spotlight-description-content {
+    max-width: 800px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.7;
+    color: #a0aec0; /* Lighter gray for readability */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    /* Removed justify-content: center; from here if you want content to flow naturally */
-    /* This was causing vertical centering, which might not be desired for a multi-section page */
-}
-
-/* The old .cafe-homepage .hero-text styles are removed from here
-   because that specific div was replaced by the new .why-spotlight-section in HomePage.js.
-   The hero text in the Header component is styled by Header.css.
-*/
-
-/* NEW SECTION: Why Spotlight? Styling */
-.why-spotlight-section {
-    padding: 4rem 5vw; /* Generous padding for the section */
-    background-color: #fff; /* White background for contrast */
-    color: #333;
-    text-align: center;
-    max-width: 1000px; /* Limit width for readability */
-    margin: 2rem auto; /* Center the section with some vertical margin */
-    border-radius: 8px; /* Slightly rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-    box-sizing: border-box; /* Include padding in element's total width */
-}
-
-.why-spotlight-section .section-title {
-    font-size: clamp(2rem, 4vw, 3rem); /* Responsive title font size */
-    font-weight: 700;
-    margin-bottom: 2rem;
-    color: #ffb300; /* Your accent color */
-}
-
-.why-spotlight-section .spotlight-description-content p {
-    font-size: clamp(1rem, 1.8vw, 1.1rem); /* Responsive paragraph font size */
-    line-height: 1.6;
-    margin-bottom: 1.5rem; /* Space between paragraphs */
-    max-width: 800px; /* Max width for paragraph lines for readability */
-    margin-left: auto;
-    margin-right: auto;
-    text-align: left; /* Left align text within the content block */
-}
-
-/* Adjustments for smaller screens */
-@media (max-width: 768px) {
-    .why-spotlight-section {
-        padding: 2rem 3vw;
-        margin: 1rem auto;
-    }
-    .why-spotlight-section .section-title {
-        font-size: clamp(1.8rem, 6vw, 2.5rem);
-    }
-    .why-spotlight-section .spotlight-description-content p {
-        font-size: clamp(0.9rem, 3.5vw, 1rem);
-        margin-bottom: 1rem;
-    }
+    gap: 1.5rem;
 }
