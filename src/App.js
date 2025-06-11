@@ -3,21 +3,28 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate, Outlet } from 'react-router-dom';
 import { AuthProvider, useAuth } from './AuthContext';
 import Header from './Views/Header';
+import Footer from './components/Footer'; // Import the new Footer component
 import HomePage from './Views/HomePage';
 import Dashboard from './Views/Dashboard';
 import AuthPage from './Views/AuthPage';
 import './App.css';
 import './i18n';
+import BlogPage from './Views/BlogPage.js';
+import BlogPostPage from './Views/BlogPostPage.js';
 
 /**
- * A layout component that includes the Header.
- * Any route nested inside this component will render with the Header.
+ * A layout component that includes the Header and Footer.
+ * Any route nested inside this component will render with the Header and Footer.
  * The <Outlet /> component is a placeholder where the actual page component (e.g., HomePage) will be rendered.
  */
 const MainLayout = () => (
   <>
     <Header />
-    <Outlet />
+    {/* UPDATE: Changed this div to a main element */}
+    <main style={{ paddingTop: '70px', paddingBottom: '80px' }}>
+      <Outlet />
+    </main>
+    <Footer />
   </>
 );
 
@@ -47,24 +54,25 @@ function AppContent() {
   }
 
   return (
-    <div className="App">
+    <div className="App min-h-screen">
       <Routes>
-        {/* UPDATE: Routes that should have the header are now nested inside the MainLayout.
-          This ensures the header is only present on these pages.
-        */}
+        {/* Routes that have the header and footer */}
         <Route element={<MainLayout />}>
           <Route path="/" element={currentUser ? <Dashboard /> : <HomePage />} />
-          {/* You can add other pages that need a header here, e.g., <Route path="/blog" element={<BlogPage />} /> */}
+          <Route path="/dashboard" element={currentUser ? <Dashboard /> : <Navigate to="/auth" />} />
+          
+          {/* --- NEW BLOG ROUTES --- */}
+          <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:postId" element={<BlogPostPage />} />
+          {/* ----------------------- */}
+
         </Route>
 
-        {/* The authentication page route is outside the MainLayout, so it will NOT have the header.
-          This prevents the "page below" issue.
-        */}
+        {/* Auth page route without header and footer */}
         <Route path="/auth" element={!currentUser ? <AuthPage /> : <Navigate to="/" />} />
-        
-        {/* A fallback route to navigate home if no other route matches */}
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
     </div>
   );
 }
+

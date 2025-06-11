@@ -1,141 +1,201 @@
-.auth-page-container {
+/* src/Views/AuthPage.css */
+
+.auth-page {
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  padding: 4rem 2rem;
-  font-family: 'Inter', sans-serif;
-  
-  /* UPDATE: Using your new background image */
-  background-image: url('../assets/auth-background.png');
+  padding: 20px;
+  /* --- UPDATE: Set the background image --- */
+  /* This uses the background image path from your original CSS file */
+  background-image: url('../assets/auth-background.png'); /* */
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-
-  /* The old gradient background is removed */
 }
 
-.auth-form-wrapper {
-  /* UPDATE: Changed background to transparent and removed backdrop-filter */
-  background-color: transparent;
-  padding: 2.5rem;
-  border-radius: 1rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-  width: 100%;
+.auth-container {
   max-width: 420px;
+  width: 100%;
+  padding: 40px;
+
+  /* --- UPDATE: Transparency increased significantly --- */
+  /* The last value in rgba() is the transparency (alpha).
+     It was 0.9, now it's 0.5. You can set it even lower (e.g., 0.3) 
+     if you want more transparency, or higher if you need better readability. */
+  background-color: rgba(26, 26, 29, 0.5);
+
   border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 }
 
-.auth-logo {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1.5rem;
-  gap: 12px;
-}
-
-.auth-logo img {
-  height: 40px;
-}
-
-.auth-logo-text {
-  font-size: 1.8rem;
-  font-weight: bold;
-  color: #fca311;
-  letter-spacing: 1px;
-}
-
-.auth-title {
-  font-size: 1.75rem;
-  font-weight: 600;
-  color: #fff;
-  margin-bottom: 2rem;
+.auth-header {
   text-align: center;
+  margin-bottom: 30px;
 }
 
-.auth-form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 1.2rem;
+.auth-header h2 {
+  color: #ffffff;
+  font-size: 2.2rem; /* Adjusted to match image */
+  margin: 0;
+  font-weight: 600;
 }
 
-.auth-input {
-  width: 100%;
-  padding: 0.9rem 1rem;
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 0.5rem;
-  color: #fff;
+.auth-header p {
+  color: #a0a0a0;
   font-size: 1rem;
-  transition: border-color 0.3s, box-shadow 0.3s;
+  margin-top: 8px;
 }
 
-.auth-input:focus {
+.auth-form .form-group {
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.auth-form label {
+  display: block;
+  color: #a0a0a0;
+  margin-bottom: 8px;
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="password"] {
+  width: 100%;
+  padding: 12px 15px;
+  background-color: rgba(255, 255, 255, 0.05); /* More subtle input background */
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 8px;
+  color: #ffffff;
+  font-size: 1rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.auth-form input[type="text"]:focus,
+.auth-form input[type="email"]:focus,
+.auth-form input[type="password"]:focus {
   outline: none;
   border-color: #fca311;
   box-shadow: 0 0 0 3px rgba(252, 163, 17, 0.3);
 }
 
 .auth-btn {
-  padding: 0.9rem;
-  border-radius: 0.5rem;
+  width: 100%;
+  padding: 14px;
   background: linear-gradient(90deg, #fca311, #ffc400);
+  border: none;
+  border-radius: 8px;
   color: #1a1a1d;
   font-size: 1.1rem;
   font-weight: bold;
-  border: none;
   cursor: pointer;
-  transition: transform 0.2s, box-shadow 0.2s;
-  margin-top: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  margin-top: 10px;
 }
 
 .auth-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(252, 163, 17, 0.4);
+  box-shadow: 0 6px 20px rgba(252, 163, 17, 0.4);
 }
 
 .auth-btn:disabled {
-  opacity: 0.6;
+  background: #555;
+  color: #888;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
-.auth-message {
+.auth-error {
+  color: #f87171;
+  background-color: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.5);
+  padding: 12px;
+  border-radius: 8px;
   text-align: center;
-  margin-top: 1rem;
+  margin-top: 20px;
   font-size: 0.9rem;
 }
 
-.auth-message.success {
- color: #4ade80;
-}
-
-.auth-message.error {
-  color: #f87171;
-}
-
-.auth-switch-text {
-  margin-top: 1.5rem;
+.auth-switch-view {
   text-align: center;
-  font-size: 0.95rem;
+  margin-top: 25px;
   color: #a0aec0;
+  font-size: 0.95rem;
 }
 
-.auth-switch-link {
+.auth-switch-view button,
+.forgot-password-link {
   background: none;
   border: none;
   color: #fca311;
   font-weight: 600;
-  text-decoration: none;
-  transition: color 0.3s;
   cursor: pointer;
-  font-size: inherit;
-  padding: 0;
+  padding: 0 5px;
+  font-size: inherit; /* Inherit size from parent */
+  transition: color 0.3s;
 }
-
-.auth-switch-link:hover {
+.auth-switch-view button:hover,
+.forgot-password-link:hover {
   color: #ffc400;
   text-decoration: underline;
+}
+
+.forgot-password-container {
+  text-align: center;
+  margin-top: 15px;
+  margin-bottom: 10px;
+}
+
+.auth-divider {
+  display: flex;
+  align-items: center;
+  text-align: center;
+  color: #555;
+  margin: 30px 0;
+}
+
+.auth-divider::before,
+.auth-divider::after {
+  content: '';
+  flex: 1;
+  border-bottom: 1px solid #444;
+}
+
+.auth-divider:not(:empty)::before {
+  margin-right: .5em;
+}
+
+.auth-divider:not(:empty)::after {
+  margin-left: .5em;
+}
+
+.social-login-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+}
+
+.social-login-btn {
+  background-color: #2c2c2c;
+  border: 1px solid #444;
+  color: #fff;
+  padding: 12px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  font-size: 1.5rem;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.social-login-btn:hover {
+  background-color: #3d3d3d;
+  transform: translateY(-2px);
 }

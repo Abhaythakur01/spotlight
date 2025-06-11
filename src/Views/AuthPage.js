@@ -1,113 +1,162 @@
-import React, { useState } from 'react';
+// src/Views/AuthPage.js
+
+import React, { useState, useRef } from 'react';
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
-import SpotlightLogo from '../assets/spotlight-v1.png';
-import './AuthPage.css'; // We will create this CSS file next
+import './AuthPage.css';
+import { FaGoogle, FaFacebookF, FaApple } from 'react-icons/fa'; // Import icons
 
 const AuthPage = () => {
-  const [isLoginView, setIsLoginView] = useState(true);
-  const { login, signup, authLoading } = useAuth();
-  const navigate = useNavigate();
-
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [view, setView] = useState('login'); // 'login', 'signup', or 'forgot'
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const fullNameRef = useRef();
   const [error, setError] = useState('');
-  const [success, setSuccess] = useState('');
-
-  const resetFormState = () => {
-    setError('');
-    setSuccess('');
-    setFullName('');
-    setEmail('');
-    setPassword('');
-  };
-
-  const handleToggleView = () => {
-    setIsLoginView(!isLoginView);
-    resetFormState();
-  };
+  const [message, setMessage] = useState('');
+  const { login, signup, resetPassword, authLoading } = useAuth();
+  const navigate = useNavigate();
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccess('');
-    if (!email || !password) {
-      return setError('Please enter both email and password.');
-    }
-    const result = await login(email, password);
-    if (result.success) {
-      setSuccess('Logged in successfully! Redirecting...');
-      setTimeout(() => navigate('/'), 1500);
-    } else {
-      setError(result.error || 'Login failed. Please check your credentials.');
+    setMessage('');
+    try {
+      const result = await login(emailRef.current.value, passwordRef.current.value);
+      if (!result.success) {
+        setError(result.error || 'Failed to log in.');
+      } else {
+        navigate('/');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred.');
     }
   };
 
   const handleSignupSubmit = async (e) => {
     e.preventDefault();
     setError('');
-    setSuccess('');
-    if (!fullName || !email || !password) {
-      return setError('Please fill in all fields.');
-    }
-    if (password.length < 6) {
-      return setError('Password must be at least 6 characters long.');
-    }
-    const result = await signup(email, password, fullName);
-    if (result.success) {
-      setSuccess('Account created! Please login.');
-      setTimeout(() => {
-        setIsLoginView(true);
-        resetFormState();
-      }, 2000);
-    } else {
-      setError(result.error || 'Signup failed. Please try again.');
+    setMessage('');
+    try {
+      const result = await signup(emailRef.current.value, passwordRef.current.value, fullNameRef.current.value);
+      if (!result.success) {
+        setError(result.error || 'Failed to sign up.');
+      } else {
+        navigate('/');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred.');
     }
   };
 
-  return (
-    <div className="auth-page-container">
-      <div className="auth-form-wrapper">
-        <div className="auth-logo">
-          <img src={SpotlightLogo} alt="Spotlight Logo" />
-          <span className="auth-logo-text">Spotlight</span>
-        </div>
+  const handleResetSubmit = async (e) => {
+    e.preventDefault();
+    setError('');
+    setMessage('');
+    try {
+      const result = await resetPassword(emailRef.current.value);
+      if (result.success) {
+        setMessage('Check your inbox for further instructions.');
+      } else {
+        setError(result.error || 'Failed to send password reset email.');
+      }
+    } catch (err) {
+      setError('An unexpected error occurred.');
+    }
+  };
+  
+  // A small component for the form header
+  const AuthHeader = ({ title, subtitle }) => (
+    <div className="auth-header">
+      <h2>{title}</h2>
+      <p>{subtitle}</p>
+    </div>
+  );
 
-        {isLoginView ? (
+  return (
+    <div className="auth-page">
+      <div className="auth-container">
+        {view === 'login' && (
           <>
-            <h2 className="auth-title">Welcome Back</h2>
+            <AuthHeader title="Welcome Back!" subtitle="Sign in to continue to Spotlight" />
             <form onSubmit={handleLoginSubmit} className="auth-form">
-              <input type="email" placeholder="Email" className="auth-input" value={email} onChange={(e) => setEmail(e.target.value)} required />
-              <input type="password" placeholder="Password" className="auth-input" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <div className="form-group">
+                <label htmlFor="login-email">Email</label>
+                <input id="login-email" type="email" ref={emailRef} required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="login-password">Password</label>
+                <input id="login-password" type="password" ref={passwordRef} required />
+              </div>
               <button type="submit" className="auth-btn" disabled={authLoading}>
-                {authLoading ? 'Logging In...' : 'Login'}
+                {authLoading ? 'Signing In...' : 'Sign In'}
               </button>
             </form>
+            <div className="auth-switch-view">
+              <button onClick={() => setView('forgot')}>Forgot Password?</button>
+            </div>
           </>
-        ) : (
+        )}
+
+        {view === 'signup' && (
           <>
-            <h2 className="auth-title">Create Your Account</h2>
+            <AuthHeader title="Create Account" subtitle="Get started with Spotlight today" />
             <form onSubmit={handleSignupSubmit} className="auth-form">
-              <input type="text" placeholder="Full Name" className="auth-input" value={fullName} onChange={(e) => setFullName(e.target.value)} required />
-              <input type="email" placeholder="Email" className="auth-input" value={email} onChange={(e) => setEmail(e.target.value)} required />
-              <input type="password" placeholder="Password" className="auth-input" value={password} onChange={(e) => setPassword(e.target.value)} required />
+              <div className="form-group">
+                <label htmlFor="signup-fullname">Full Name</label>
+                <input id="signup-fullname" type="text" ref={fullNameRef} required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="signup-email">Email</label>
+                <input id="signup-email" type="email" ref={emailRef} required />
+              </div>
+              <div className="form-group">
+                <label htmlFor="signup-password">Password</label>
+                <input id="signup-password" type="password" ref={passwordRef} required />
+              </div>
               <button type="submit" className="auth-btn" disabled={authLoading}>
-                {authLoading ? 'Creating Account...' : 'Sign Up'}
+                {authLoading ? 'Creating Account...' : 'Create Account'}
               </button>
             </form>
           </>
         )}
 
-        {error && <p className="auth-message error">{error}</p>}
-        {success && <p className="auth-message success">{success}</p>}
+        {view === 'forgot' && (
+            <>
+            <AuthHeader title="Reset Password" subtitle="We'll send you a link to reset your password" />
+            <form onSubmit={handleResetSubmit} className="auth-form">
+                <div className="form-group">
+                <label htmlFor="reset-email">Email</label>
+                <input id="reset-email" type="email" ref={emailRef} required />
+                </div>
+                <button type="submit" className="auth-btn" disabled={authLoading}>
+                {authLoading ? 'Sending...' : 'Send Reset Link'}
+                </button>
+            </form>
+            </>
+        )}
 
-        <p className="auth-switch-text">
-          {isLoginView ? "Don't have an account?" : "Already have an account?"}{' '}
-          <button onClick={handleToggleView} className="auth-switch-link">
-            {isLoginView ? 'Sign Up' : 'Login'}
-          </button>
-        </p>
+        {error && <p className="auth-error">{error}</p>}
+        {message && <p className="auth-message">{message}</p>} 
+        
+        <div className="auth-divider">or</div>
+
+        <div className="social-login-container">
+          <button className="social-login-btn google"><FaGoogle /></button>
+          <button className="social-login-btn facebook"><FaFacebookF /></button>
+          <button className="social-login-btn apple"><FaApple /></button>
+        </div>
+
+        <div className="auth-switch-view">
+          {view === 'login' && (
+            <p>Don't have an account? <button onClick={() => setView('signup')}>Sign Up</button></p>
+          )}
+          {view === 'signup' && (
+            <p>Already have an account? <button onClick={() => setView('login')}>Sign In</button></p>
+          )}
+          {view === 'forgot' && (
+            <p>Remembered your password? <button onClick={() => setView('login')}>Sign In</button></p>
+          )}
+        </div>
       </div>
     </div>
   );

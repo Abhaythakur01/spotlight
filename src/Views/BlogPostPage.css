@@ -1,0 +1,35 @@
+.blog-post-container {
+  max-width: 800px;
+  margin: 4rem auto;
+  padding: 0 2rem;
+  color: #fff;
+}
+
+.blog-post-title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  text-align: center;
+  margin-bottom: 2rem;
+  line-height: 1.2;
+}
+
+.blog-post-main-image {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  margin-bottom: 3rem;
+}
+
+.blog-post-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #a0aec0;
+  margin-bottom: 1.5rem;
+}
+
+.blog-post-not-found {
+    text-align: center;
+    padding: 5rem;
+}
+.blog-post-not-found a {
+    color: #fca311;
+}

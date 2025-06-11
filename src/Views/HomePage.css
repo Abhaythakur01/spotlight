@@ -1,32 +1,120 @@
 /* Container for all content below the header on the homepage */
 .homepage-content {
-    width: 100%;
-    /* A base dark color for the entire page content area */
-    background-color: #111; 
+  width: 100%;
+  background-color: #111;
 }
 
-/* Styling for your "Why Spotlight?" section */
+/* --- UPDATED: Why Spotlight Section --- */
 .why-spotlight-section {
-    padding: 5rem 2rem;
-    text-align: center;
-    color: #fff;
-    background-color: #1a1a1d; /* A slightly different dark shade to stand out */
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Creates the two-column layout */
+  align-items: center;
+  gap: 3rem;
+  padding: 5rem 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+  min-height: 90vh;
+}
+
+/* --- NEW: Image Carousel Styles --- */
+.image-carousel-container {
+  position: relative;
+  width: 100%;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-image {
+  width: 100%;
+  height: auto;
+  display: block;
+  aspect-ratio: 4 / 3; /* Maintains a consistent shape */
+  object-fit: cover;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.5);
+  color: white;
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.carousel-btn:hover {
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+.carousel-btn.prev {
+  left: 1rem;
+}
+
+.carousel-btn.next {
+  right: 1rem;
+}
+
+.carousel-dots {
+  position: absolute;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 0.75rem;
+}
+
+.dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.5);
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.dot.active {
+  background-color: #fca311;
+}
+
+/* --- NEW: Text Content Styles --- */
+.text-content-container {
+  color: #fff;
 }
 
 .section-title {
-    font-size: clamp(1.8rem, 4vw, 2.5rem);
-    font-weight: 700;
-    color: #fca311; /* Gold/yellow accent */
-    margin-bottom: 2.5rem;
+  font-size: clamp(2.2rem, 5vw, 3.5rem);
+  font-weight: 700;
+  color: #fca311;
+  margin-bottom: 2.5rem;
+  text-align: left;
 }
 
-.spotlight-description-content {
-    max-width: 800px;
-    margin: 0 auto;
-    font-size: 1.1rem;
-    line-height: 1.7;
-    color: #a0aec0; /* Lighter gray for readability */
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+.spotlight-description-content p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #a0aec0;
+  padding-left: 1.5rem;
+  /* This creates the "proper line" you requested */
+  border-left: 3px solid #fca311;
+  margin-bottom: 2rem;
+}
+
+/* Responsive adjustments for the new layout */
+@media (max-width: 900px) {
+  .why-spotlight-section {
+    grid-template-columns: 1fr; /* Stack columns on smaller screens */
+    text-align: center;
+  }
+  .section-title {
+    text-align: center;
+  }
 }

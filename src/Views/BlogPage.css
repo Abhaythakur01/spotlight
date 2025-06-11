@@ -1,0 +1,30 @@
+.blog-page-container {
+  padding: 4rem 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.blog-page-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.blog-page-title {
+  /* UPDATE: Significantly increased font size to match the reference image */
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 800; /* Bolder font */
+  text-transform: uppercase; /* Makes text all caps like "FRESH POSTS" */
+  color: #fff;
+  line-height: 1; /* Tighter line height for large text */
+}
+
+.blog-page-subtitle {
+  font-size: 1.25rem;
+  color: #a0aec0;
+  margin-top: 0.5rem;
+}
+
+.blog-posts-list {
+  display: grid;
+  gap: 2.5rem;
+}

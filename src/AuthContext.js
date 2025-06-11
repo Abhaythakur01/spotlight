@@ -1,19 +1,18 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { auth, db } from './firebase'; // Make sure you have these exports from firebase.js
+import { auth, db } from './firebase';
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   signOut,
   onAuthStateChanged,
   updateProfile,
+  sendPasswordResetEmail // UPDATE: Import the password reset function
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
 const AuthContext = React.createContext();
 
-// A safe identifier for the app from your environment variables.
 const appId = process.env.REACT_APP_PROJECT_ID;
-
 
 export function useAuth() {
   return useContext(AuthContext);
@@ -28,11 +27,7 @@ export function AuthProvider({ children }) {
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
       const user = userCredential.user;
-
-      // Add the full name to the user's auth profile
       await updateProfile(user, { displayName: fullName });
-
-      // **FIXED**: Create a user document in Firestore using the path from your security rules
       const userDocPath = `artifacts/${appId}/users/${user.uid}/profile/data`;
       await setDoc(doc(db, userDocPath), {
         uid: user.uid,
@@ -40,7 +35,6 @@ export function AuthProvider({ children }) {
         displayName: fullName,
         createdAt: new Date(),
       });
-
       return { success: true };
     } catch (error) {
       return { success: false, error: error.message };
@@ -60,21 +54,23 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   }
 
+  // UPDATE: New function for password reset
+  async function resetPassword(email) {
+    try {
+      await sendPasswordResetEmail(auth, email);
+      return { success: true };
+    } catch (error) {
+      return { success: false, error: error.message };
+    }
+  }
+
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        // **FIXED**: When auth state changes, get the user doc from the correct Firestore path
         const userDocPath = `artifacts/${appId}/users/${user.uid}/profile/data`;
         const userDocRef = doc(db, userDocPath);
         const userDoc = await getDoc(userDocRef);
-
-        if (userDoc.exists()) {
-           // Combine auth data with firestore data
-           setCurrentUser({ ...user, ...userDoc.data() });
-        } else {
-           // Fallback if firestore doc isn't created yet or was missed
-           setCurrentUser(user);
-        }
+        setCurrentUser(userDoc.exists() ? { ...user, ...userDoc.data() } : user);
         setUserId(user.uid);
       } else {
         setCurrentUser(null);
@@ -82,7 +78,6 @@ export function AuthProvider({ children }) {
       }
       setAuthLoading(false);
     });
-
     return unsubscribe;
   }, []);
 
@@ -93,6 +88,7 @@ export function AuthProvider({ children }) {
     signup,
     login,
     logout,
+    resetPassword, // UPDATE: Expose the new function
   };
 
   return (

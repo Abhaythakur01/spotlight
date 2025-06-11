@@ -1,6 +1,27 @@
+/* src/App.css */
+
+/* --- Consolidated Main App Layout (Sticky Footer Setup) --- */
+
+/* The .App container wraps your entire application.
+   - It's set up as a vertical flex container to manage the main layout.
+   - min-height: 100vh ensures it's at least as tall as the browser window.
+*/
 .App {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: #111;
   text-align: center;
 }
+
+/* This rule makes the main content area expand to push the footer down. */
+.App main {
+  flex-grow: 1;
+}
+
+
+/* --- Original Create React App Styles --- */
+/* These are the default styles that came with your project. */
 
 .App-logo {
   height: 40vmin;
