@@ -1,0 +1,23 @@
+.artist-category-container {
+  padding: 5rem 2rem;
+  text-align: center;
+  color: #fff;
+}
+
+.artist-category-header {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.artist-category-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 700;
+  color: #fca311;
+}
+
+.artist-category-subtitle {
+  font-size: 1.25rem;
+  color: #a0aec0;
+  margin-top: 1rem;
+  margin-bottom: 2rem;
+}

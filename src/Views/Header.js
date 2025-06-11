@@ -2,11 +2,10 @@
 
 import React, { useState, useEffect, useRef } from 'react';
 import './Header.css';
-import { FaMobileAlt, FaChevronDown } from 'react-icons/fa';
+import { FaMobileAlt, FaChevronDown, FaStar } from 'react-icons/fa';
 import SpotlightLogo from '../assets/spotlight-v1.png';
 import { useTranslation } from 'react-i18next';
 import { useAuth } from '../AuthContext';
-// UPDATE: Import useLocation
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import HeroVideo from '../assets/hero-video.mp4';
 
@@ -14,20 +13,17 @@ const Header = () => {
   const { t, i18n } = useTranslation();
   const { currentUser, logout } = useAuth();
   const navigate = useNavigate();
-  const location = useLocation(); // UPDATE: Get the current location
+  const location = useLocation();
 
   const [isProfileOpen, setProfileOpen] = useState(false);
   const [isExploreOpen, setExploreOpen] = useState(false);
-
+  const [isWhoAreYouOpen, setWhoAreYouOpen] = useState(false);
+  
   const profileRef = useRef(null);
   const exploreRef = useRef(null);
+  const whoAreYouRef = useRef(null);
 
-  // UPDATE: Check if the current page is the homepage
   const isHomePage = location.pathname === '/';
-
-  const handleNavigate = (path) => {
-    navigate(path);
-  };
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -36,6 +32,9 @@ const Header = () => {
       }
       if (exploreRef.current && !exploreRef.current.contains(event.target)) {
         setExploreOpen(false);
+      }
+      if (whoAreYouRef.current && !whoAreYouRef.current.contains(event.target)) {
+        setWhoAreYouOpen(false);
       }
     };
     document.addEventListener('mousedown', handleClickOutside);
@@ -52,9 +51,7 @@ const Header = () => {
   };
 
   return (
-    // UPDATE: The container logic now also checks if it's the homepage
     <div className={!currentUser && isHomePage ? "landing-container" : "header-only-container"}>
-      {/* UPDATE: The video now only renders on the homepage when logged out */}
       {!currentUser && isHomePage && (
         <video autoPlay loop muted className="background-video">
           <source src={HeroVideo} type="video/mp4" />
@@ -63,7 +60,6 @@ const Header = () => {
       )}
       <div className="content-overlay">
         <header className="navbar">
-          {/* The rest of your header JSX remains the same... */}
           <div className="logo">
             <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
               <img src={SpotlightLogo} alt="Spotlight Logo" height={30} />
@@ -83,12 +79,37 @@ const Header = () => {
                 </div>
               )}
             </div>
+
             <a href="/#why-spotlight">{t('whySpotlight')}</a>
-            <button onClick={() => handleNavigate('/auth')} className="nav-button-link">{t('register')}</button>
-            <a href="/#help">{t('help')}</a>
+            
+            <div className="nav-explore-container" ref={whoAreYouRef}>
+              <button onClick={() => setWhoAreYouOpen(!isWhoAreYouOpen)} className="nav-button-link" style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
+                Who are you? <FaChevronDown size={12} />
+              </button>
+              {/* --- UPDATED "WHO ARE YOU?" DROPDOWN --- */}
+              {isWhoAreYouOpen && (
+                <div className="explore-dropdown">
+                  <Link to="/artists/stand-up-comic" className="explore-dropdown-link" onClick={() => setWhoAreYouOpen(false)}>Stand up comic</Link>
+                  <Link to="/artists/poet" className="explore-dropdown-link" onClick={() => setWhoAreYouOpen(false)}>Poet</Link>
+                  <Link to="/artists/storyteller" className="explore-dropdown-link" onClick={() => setWhoAreYouOpen(false)}>Storyteller</Link>
+                  <Link to="/artists/singer" className="explore-dropdown-link" onClick={() => setWhoAreYouOpen(false)}>Singer</Link>
+                  <Link to="/artists/dancer" className="explore-dropdown-link" onClick={() => setWhoAreYouOpen(false)}>Dancer</Link>
+                  <Link to="/artists/theater-artist" className="explore-dropdown-link" onClick={() => setWhoAreYouOpen(false)}>Theater Artist</Link>
+                </div>
+              )}
+            </div>
+
             <Link to="/blog" className="nav-button-link">{t('blog')}</Link>
-            <button onClick={() => handleNavigate('/auth')} className="nav-button-link">{t('account')}</button>
+            
+            {/* --- UPDATED MEMBERSHIP LINK WITH ICON --- */}
+            <Link to="/membership" className="nav-membership-link">
+              <FaStar className="membership-icon" />
+              <span>Membership</span>
+            </Link>
+
+            <button onClick={() => navigate('/auth')} className="nav-button-link">{t('account')}</button>
           </nav>
+          
           <div className="header-actions">
             <select 
               onChange={(e) => i18n.changeLanguage(e.target.value)} 
@@ -120,14 +141,13 @@ const Header = () => {
                 )}
               </div>
             ) : (
-              <button onClick={() => handleNavigate('/auth')} className="get-started-btn">Login/Signup</button>
+              <button onClick={() => navigate('/auth')} className="get-started-btn">Login/Signup</button>
             )}
           </div>
         </header>
-        {/* UPDATE: The hero text now only renders on the homepage when logged out */}
         {!currentUser && isHomePage && (
           <section className="hero-text">
-            <button onClick={() => handleNavigate('/auth')} className="register-btn">{t('registerNow')}</button>
+            <button onClick={() => navigate('/auth')} className="register-btn">{t('registerNow')}</button>
             <div className="app-coming">
               <FaMobileAlt />
               <span>{t('appComingSoon')}</span>

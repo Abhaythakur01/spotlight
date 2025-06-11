@@ -1,7 +1,7 @@
 /* Container for all content below the header on the homepage */
 .homepage-content {
   width: 100%;
-  background-color: #111;
+  background-color: #1a1a1d; /* Darker shade for contrast */
 }
 
 /* --- UPDATED: Why Spotlight Section --- */

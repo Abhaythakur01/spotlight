@@ -353,3 +353,25 @@ body, html, #root {
   background-color: rgba(252, 163, 17, 0.1);
   color: #fca311;
 }
+
+/* --- UPDATED STYLE FOR MEMBERSHIP LINK WITH ICON --- */
+.nav-membership-link {
+  /* Removing background and padding to make it a normal link again */
+  text-decoration: none;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 6px; /* Space between the icon and text */
+  transition: color 0.3s;
+}
+
+/* This targets the icon itself */
+.membership-icon {
+  color: #fca311; /* Your gold accent color */
+  font-size: 1.1em; /* Make the icon slightly larger than the text */
+  transition: transform 0.3s;
+}
+
+.nav-membership-link:hover .membership-icon {
+  transform: scale(1.2) rotate(15deg); /* Add a fun effect on hover */
+}

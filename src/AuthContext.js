@@ -6,7 +6,7 @@ import {
   signOut,
   onAuthStateChanged,
   updateProfile,
-  sendPasswordResetEmail // UPDATE: Import the password reset function
+  sendPasswordResetEmail
 } from 'firebase/auth';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 
@@ -54,7 +54,6 @@ export function AuthProvider({ children }) {
     return signOut(auth);
   }
 
-  // UPDATE: New function for password reset
   async function resetPassword(email) {
     try {
       await sendPasswordResetEmail(auth, email);
@@ -88,12 +87,13 @@ export function AuthProvider({ children }) {
     signup,
     login,
     logout,
-    resetPassword, // UPDATE: Expose the new function
+    resetPassword,
   };
 
   return (
     <AuthContext.Provider value={value}>
-      {!authLoading && children}
+      {/* UPDATE: Removed the "!authLoading &&" condition to allow children to render immediately */}
+      {children}
     </AuthContext.Provider>
   );
 }
