@@ -1,10 +1,12 @@
+/* src/Views/HomePage.css */
+
 /* Container for all content below the header on the homepage */
 .homepage-content {
   width: 100%;
-  background-color: #1a1a1d; /* Darker shade for contrast */
+  background-color: #1a1a1d; /* Restored solid background */
 }
 
-/* --- UPDATED: Why Spotlight Section --- */
+/* Why Spotlight Section */
 .why-spotlight-section {
   display: grid;
   grid-template-columns: 1fr 1fr; /* Creates the two-column layout */
@@ -16,7 +18,7 @@
   min-height: 90vh;
 }
 
-/* --- NEW: Image Carousel Styles --- */
+/* Image Carousel Styles */
 .image-carousel-container {
   position: relative;
   width: 100%;
@@ -85,7 +87,7 @@
   background-color: #fca311;
 }
 
-/* --- NEW: Text Content Styles --- */
+/* Text Content Styles */
 .text-content-container {
   color: #fff;
 }
@@ -103,12 +105,11 @@
   line-height: 1.8;
   color: #a0aec0;
   padding-left: 1.5rem;
-  /* This creates the "proper line" you requested */
   border-left: 3px solid #fca311;
   margin-bottom: 2rem;
 }
 
-/* Responsive adjustments for the new layout */
+/* Responsive adjustments */
 @media (max-width: 900px) {
   .why-spotlight-section {
     grid-template-columns: 1fr; /* Stack columns on smaller screens */

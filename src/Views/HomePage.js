@@ -1,30 +1,25 @@
+// src/Views/HomePage.js
+
 import React, { useState } from 'react';
 import './HomePage.css';
 import { useTranslation } from 'react-i18next';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
 
-// UPDATE: Import your local images here.
-// Make sure you have created a 'carousel' folder inside 'src/assets/'
-// and placed your images there.
+
+// Import your local images
 import image1 from '../assets/carousel/image1.png';
 import image2 from '../assets/carousel/image2.png';
 import image3 from '../assets/carousel/image3.png';
 import image4 from '../assets/carousel/image4.png';
 
-// The array now uses the imported images.
-const carouselImages = [
-  image1,
-  image2,
-  image3,
-  image4,
-];
+const carouselImages = [image1, image2, image3, image4];
 
 function HomePage() {
   const { t } = useTranslation();
   const [currentIndex, setCurrentIndex] = useState(0);
 
   const handleNext = () => {
-    setCurrentIndex((prevIndex) => 
+    setCurrentIndex((prevIndex) =>
       prevIndex === carouselImages.length - 1 ? 0 : prevIndex + 1
     );
   };
@@ -73,8 +68,8 @@ function HomePage() {
           </div>
         </div>
       </section>
-      {/* Other homepage sections can be added here */}
     </main>
   );
 }
+
 export default HomePage;

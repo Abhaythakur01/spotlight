@@ -1,3 +1,4 @@
+/* Sets up the base font and background color for the entire application. */
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,6 +6,38 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #1a1a1d; /* Ensures the base background is dark */
+  overflow-x: hidden; /* This is essential for ScrollSmoother */
+}
+
+
+/* --- MODERN CUSTOM SCROLLBAR --- */
+/* This styles the scrollbar to be sleek and match your app's dark theme. */
+
+/* For Webkit-based browsers (Chrome, Safari, Edge) */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1d; /* Dark background for the scrollbar track */
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #4a4a4d; /* The color of the scroll handle */
+  border-radius: 20px;       /* Gives the handle rounded corners */
+  border: 3px solid #1a1a1d; /* Creates a padding effect around the handle */
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #5a5a5d; /* Makes the handle slightly lighter on hover */
+}
+
+/* For Firefox */
+* {
+  scrollbar-width: thin;
+  /* Defines the color of the handle and the track respectively */
+  scrollbar-color: #4a4a4d #1a1a1d;
 }
 
 code {

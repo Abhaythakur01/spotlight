@@ -55,6 +55,7 @@ body, html, #root {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+/* Find your existing .navbar style */
 .navbar {
   position: fixed;
   top: 0;
@@ -62,14 +63,32 @@ body, html, #root {
   right: 0;
   z-index: 1000;
   height: 70px;
-  background-color: #0f0f0f; /* or match your theme */
+  background-color: #0f0f0f; /* This remains the default for most pages */
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 0 1rem;
   border-bottom: 1px solid #222;
+  /* ADD a transition for a smooth change */
+  transition: background-color 0.5s ease-in-out, border-color 0.5s ease-in-out;
 }
 
+/* ADD THIS NEW RULE: 
+  This makes the navbar transparent ONLY on the hero section (when it's inside landing-container)
+*/
+.landing-container .navbar {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+/* ADD THIS NEW RULE: 
+  This is the class GSAP will add when you scroll. 
+  It makes the navbar solid again.
+*/
+.landing-container .navbar.scrolled {
+  background-color: #0f0f0f;
+  border-color: #222;
+}
 
 .logo {
   display: flex;

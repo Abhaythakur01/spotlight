@@ -1,5 +1,9 @@
 // src/Views/Header.js
 
+// 1. Import GSAP and its ScrollTrigger plugin at the top
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
+
 import React, { useState, useEffect, useRef } from 'react';
 import './Header.css';
 import { FaMobileAlt, FaChevronDown, FaStar } from 'react-icons/fa';
@@ -8,6 +12,10 @@ import { useTranslation } from 'react-i18next';
 import { useAuth } from '../AuthContext';
 import { useNavigate, Link, useLocation } from 'react-router-dom';
 import HeroVideo from '../assets/hero-video.mp4';
+import MagneticButton from '../components/MagneticButton'; 
+
+// 2. Register the GSAP plugin right after imports
+gsap.registerPlugin(ScrollTrigger);
 
 const Header = () => {
   const { t, i18n } = useTranslation();
@@ -22,6 +30,9 @@ const Header = () => {
   const profileRef = useRef(null);
   const exploreRef = useRef(null);
   const whoAreYouRef = useRef(null);
+  
+  // 3. Add a ref for the navbar element
+  const navbarRef = useRef(null); 
 
   const isHomePage = location.pathname === '/';
 
@@ -43,6 +54,34 @@ const Header = () => {
     };
   }, []);
 
+  // 4. Add the useEffect for the scroll animation
+  useEffect(() => {
+    // Only apply the animation on the homepage for logged-out users
+    if (!currentUser && isHomePage) {
+      const navbar = navbarRef.current;
+
+      // Use ScrollTrigger to toggle a class when scrolling
+      const trigger = ScrollTrigger.create({
+        // THE FIX: Add the 'trigger' property here to watch the navbar
+        trigger: navbar,
+
+        start: "top top", // Trigger when the top of the page hits the top of the viewport
+        end: "+=150",   // End the trigger after scrolling 150px
+        onToggle: self => {
+          // Add the 'scrolled' class when active (scrolling down), remove it when inactive (at the top)
+          self.isActive ? navbar.classList.add('scrolled') : navbar.classList.remove('scrolled');
+        }
+      });
+
+      // Cleanup function to kill the trigger when the component unmounts
+      return () => {
+        if (trigger) {
+          trigger.kill();
+        }
+      };
+    }
+  }, [currentUser, isHomePage]); // Rerun this effect if login status or page changes
+
   const getInitials = (name) => {
     if (!name) return 'U';
     const names = name.split(' ');
@@ -59,7 +98,8 @@ const Header = () => {
         </video>
       )}
       <div className="content-overlay">
-        <header className="navbar">
+        {/* 5. Attach the ref to the header element */}
+        <header className="navbar" ref={navbarRef}>
           <div className="logo">
             <Link to="/" style={{ display: 'flex', alignItems: 'center', textDecoration: 'none' }}>
               <img src={SpotlightLogo} alt="Spotlight Logo" height={30} />
@@ -67,6 +107,7 @@ const Header = () => {
             </Link>
           </div>
           <nav className="nav-links">
+            {/* ... Rest of your nav links ... */}
             <div className="nav-explore-container" ref={exploreRef}>
               <button onClick={() => setExploreOpen(!isExploreOpen)} className="nav-button-link" style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
                 Explore <FaChevronDown size={12} />
@@ -86,7 +127,6 @@ const Header = () => {
               <button onClick={() => setWhoAreYouOpen(!isWhoAreYouOpen)} className="nav-button-link" style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
                 Who are you? <FaChevronDown size={12} />
               </button>
-              {/* --- UPDATED "WHO ARE YOU?" DROPDOWN --- */}
               {isWhoAreYouOpen && (
                 <div className="explore-dropdown">
                   <Link to="/artists/stand-up-comic" className="explore-dropdown-link" onClick={() => setWhoAreYouOpen(false)}>Stand up comic</Link>
@@ -101,7 +141,6 @@ const Header = () => {
 
             <Link to="/blog" className="nav-button-link">{t('blog')}</Link>
             
-            {/* --- UPDATED MEMBERSHIP LINK WITH ICON --- */}
             <Link to="/membership" className="nav-membership-link">
               <FaStar className="membership-icon" />
               <span>Membership</span>
@@ -111,6 +150,7 @@ const Header = () => {
           </nav>
           
           <div className="header-actions">
+            {/* ... Your language selector and profile section ... */}
             <select 
               onChange={(e) => i18n.changeLanguage(e.target.value)} 
               className="language-selector" 
@@ -141,13 +181,18 @@ const Header = () => {
                 )}
               </div>
             ) : (
-              <button onClick={() => navigate('/auth')} className="get-started-btn">Login/Signup</button>
+              <MagneticButton onClick={() => navigate('/auth')} className="get-started-btn">
+                Login/Signup
+              </MagneticButton>
             )}
           </div>
         </header>
         {!currentUser && isHomePage && (
           <section className="hero-text">
-            <button onClick={() => navigate('/auth')} className="register-btn">{t('registerNow')}</button>
+            {/* ... Rest of your hero text ... */}
+            <MagneticButton onClick={() => navigate('/auth')} className="register-btn">
+              {t('registerNow')}
+            </MagneticButton>
             <div className="app-coming">
               <FaMobileAlt />
               <span>{t('appComingSoon')}</span>

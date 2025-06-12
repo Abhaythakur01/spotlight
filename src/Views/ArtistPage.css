@@ -1,0 +1,159 @@
+/* Styling for the Artist Category Pages */
+.artist-page {
+    width: 100%;
+    background-color: #121212;
+    color: #e0e0e0;
+    min-height: 100vh; /* Ensure it takes up at least the full screen height */
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 60vh;
+    background-color: #222;
+    overflow: hidden;
+}
+
+.carousel-container.placeholder {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    color: #555;
+    background: linear-gradient(45deg, #222, #333);
+}
+
+.carousel-container.placeholder::after {
+    content: 'Images Coming Soon';
+}
+
+.carousel-slide {
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: opacity 0.5s ease-in-out;
+}
+
+/* Adds a dark gradient overlay to the bottom of the image for text readability */
+.carousel-slide::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(to top, rgba(18, 18, 18, 1) 0%, rgba(18, 18, 18, 0) 50%);
+}
+
+.carousel-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.4);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-btn:hover {
+    background-color: rgba(252, 163, 17, 0.8);
+    border-color: rgba(252, 163, 17, 0);
+}
+
+.carousel-btn.prev { left: 2rem; }
+.carousel-btn.next { right: 2rem; }
+
+.artist-page-content {
+    max-width: 1100px;
+    margin: -80px auto 0 auto; /* Pulls content up over the carousel gradient */
+    padding: 2rem;
+    position: relative;
+    z-index: 5;
+}
+
+.artist-description h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 1.5rem;
+}
+
+.artist-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #b3b3b3;
+    max-width: 800px;
+}
+
+.upcoming-events {
+    margin-top: 4rem;
+    border-top: 1px solid #333;
+    padding-top: 3rem;
+}
+
+.upcoming-events h3 {
+    font-size: 2rem;
+    font-weight: 600;
+    color: #fca311;
+    margin-bottom: 2rem;
+}
+
+.events-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1.5rem;
+}
+
+.event-card {
+    background-color: #1e1e1e;
+    border-radius: 8px;
+    padding: 1.5rem;
+    border: 1px solid #282828;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    border-color: #444;
+}
+
+.event-card h4 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.event-card p {
+    font-size: 0.95rem;
+    color: #a0aec0;
+    margin-bottom: 1rem;
+}
+
+.event-ticket-btn {
+    display: inline-block;
+    background-color: transparent;
+    border: 1px solid #fca311;
+    color: #fca311;
+    padding: 0.6rem 1.2rem;
+    border-radius: 5px;
+    text-align: center;
+    font-weight: bold;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.event-ticket-btn:hover {
+    background-color: #fca311;
+    color: #121212;
+}

@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import './ArtistPage.css';
+import './ArtistPage.css'; // <-- This import is crucial.
 
 // --- Placeholder Data ---
-// In a real application, this data would come from a database like Firestore.
 const artistData = {
     'stand-up-comic': {
         title: 'Stand-up Comedy',

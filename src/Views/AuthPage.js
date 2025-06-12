@@ -1,5 +1,3 @@
-// src/Views/AuthPage.js
-
 import React, { useState, useRef } from 'react';
 import { useAuth } from '../AuthContext';
 import { useNavigate } from 'react-router-dom';
@@ -87,13 +85,13 @@ const AuthPage = () => {
                 <label htmlFor="login-password">Password</label>
                 <input id="login-password" type="password" ref={passwordRef} required />
               </div>
+              <div className="forgot-password-container">
+                <button type="button" className="forgot-password-link" onClick={() => setView('forgot')}>Forgot Password?</button>
+              </div>
               <button type="submit" className="auth-btn" disabled={authLoading}>
                 {authLoading ? 'Signing In...' : 'Sign In'}
               </button>
             </form>
-            <div className="auth-switch-view">
-              <button onClick={() => setView('forgot')}>Forgot Password?</button>
-            </div>
           </>
         )}
 
