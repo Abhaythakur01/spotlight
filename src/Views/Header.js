@@ -107,7 +107,6 @@ const Header = () => {
             </Link>
           </div>
           <nav className="nav-links">
-            {/* ... Rest of your nav links ... */}
             <div className="nav-explore-container" ref={exploreRef}>
               <button onClick={() => setExploreOpen(!isExploreOpen)} className="nav-button-link" style={{display: 'flex', alignItems: 'center', gap: '5px'}}>
                 Explore <FaChevronDown size={12} />
@@ -139,18 +138,24 @@ const Header = () => {
               )}
             </div>
 
-            <Link to="/blog" className="nav-button-link">{t('blog')}</Link>
+            {/* --- NAVIGATION UPDATES --- */}
+            {/* 1. "Blog" link removed from here (still in Explore dropdown) */}
+            
+            {/* 2. New "Community" link added */}
+            <Link to="/community" className="nav-button-link">{t('Community')}</Link>
+
+            {/* 3. New "Marketplace" link added */}
+            <Link to="/marketplace" className="nav-button-link">{t('Marketplace')}</Link>
             
             <Link to="/membership" className="nav-membership-link">
               <FaStar className="membership-icon" />
               <span>Membership</span>
             </Link>
 
-            <button onClick={() => navigate('/auth')} className="nav-button-link">{t('account')}</button>
+            {/* 4. "Account" button removed */}
           </nav>
           
           <div className="header-actions">
-            {/* ... Your language selector and profile section ... */}
             <select 
               onChange={(e) => i18n.changeLanguage(e.target.value)} 
               className="language-selector" 
@@ -176,6 +181,8 @@ const Header = () => {
                       <p className="profile-name">{currentUser.displayName || 'User'}</p>
                       <p className="profile-email">{currentUser.email}</p>
                     </div>
+                    {/* Link to dashboard added here */}
+                    <Link to="/dashboard" className="dropdown-link" onClick={() => setProfileOpen(false)}>Dashboard</Link>
                     <button onClick={logout} className="dropdown-logout-btn">{t('logout')}</button>
                   </div>
                 )}
@@ -189,7 +196,6 @@ const Header = () => {
         </header>
         {!currentUser && isHomePage && (
           <section className="hero-text">
-            {/* ... Rest of your hero text ... */}
             <MagneticButton onClick={() => navigate('/auth')} className="register-btn">
               {t('registerNow')}
             </MagneticButton>

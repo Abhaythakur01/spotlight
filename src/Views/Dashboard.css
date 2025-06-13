@@ -1,64 +1,416 @@
+/* --- Import a modern font --- */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap');
+
+/* --- Root Variables for Theme --- */
+:root {
+    --bg-color: #121212;
+    --card-bg-color: #1a1a1a;
+    --primary-text-color: #e0e0e0;
+    --secondary-text-color: #a0a0a0;
+    --accent-color: #FFC107;
+    --accent-hover-color: #ffda6b;
+    --border-color: #2a2a2a;
+    --shadow-color: rgba(0, 0, 0, 0.2);
+    --font-family: 'Inter', sans-serif;
+}
+
+/* --- Base Styles --- */
 .dashboard-container {
-  padding: 4rem 2rem;
-  background-color: #111; /* A slightly different dark shade for the main content area */
-  color: #fff;
-  min-height: calc(100vh - 80px); /* Adjust 80px based on your header's height */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+    background-color: var(--bg-color);
+    color: var(--primary-text-color);
+    font-family: var(--font-family);
+    min-height: 100vh;
+    padding: 2rem 4rem;
+    overflow-x: hidden;
+    animation: fadeIn 0.8s ease-in-out;
 }
 
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Loading State --- */
+.dashboard-loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    font-size: 1.5rem;
+    color: var(--accent-color);
+    background-color: var(--bg-color);
+}
+
+/* --- Header --- */
+.dashboard-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    animation: slideDown 0.6s ease-out;
+}
+
+@keyframes slideDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.dashboard-header h1 {
+    font-size: 2.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
+}
+
+.dashboard-header p {
+    font-size: 1.1rem;
+    color: var(--secondary-text-color);
+}
+
+/* --- Main Content Layout --- */
 .dashboard-content {
-  width: 100%;
-  max-width: 1200px;
-  text-align: center;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
 }
 
-.dashboard-title {
-  font-size: clamp(2rem, 4vw, 3rem);
-  font-weight: 700;
-  color: #fca311;
-  margin-bottom: 1rem;
+/* --- Generic Card Style --- */
+.card {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.dashboard-subtitle {
-  font-size: clamp(1rem, 2vw, 1.25rem);
-  color: #a0aec0;
-  margin-bottom: 3rem;
-  max-width: 600px;
-  margin-left: auto;
-  margin-right: auto;
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.3);
 }
 
-.dashboard-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 2rem;
-  text-align: left;
+.card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: #fff;
 }
 
-.dashboard-card {
-  background-color: #1a1a1d;
-  padding: 2rem;
-  border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
+.card .subtitle {
+    color: var(--secondary-text-color);
+    margin-top: -0.25rem;
+    margin-bottom: 1.5rem;
 }
 
-.dashboard-card:hover {
-  transform: translateY(-5px);
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+/* --- Profile Section --- */
+.profile-section .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
 }
 
-.dashboard-card h3 {
-  font-size: 1.5rem;
-  font-weight: 600;
-  color: #fca311;
-  margin-bottom: 1rem;
+.profile-body {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
 }
 
-.dashboard-card p {
-  font-size: 1rem;
-  color: #a0aec0;
-  line-height: 1.6;
+.profile-picture-container {
+    position: relative;
+    width: 150px;
+    height: 150px;
+    flex-shrink: 0;
+}
+
+.profile-picture {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--accent-color);
+}
+
+.profile-details {
+    flex-grow: 1;
+}
+
+.profile-details h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: #f0f0f0;
+}
+
+.bio-text {
+    font-size: 1rem;
+    line-height: 1.6;
+    color: var(--primary-text-color);
+    white-space: pre-wrap;
+}
+
+.bio-textarea {
+    width: 100%;
+    min-height: 100px;
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--primary-text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.bio-textarea:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+}
+
+/* --- Generic Buttons --- */
+.edit-btn, .add-btn {
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    transition: all 0.3s ease;
+}
+
+.edit-btn:hover, .add-btn:hover {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+
+.add-btn {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+}
+.add-btn:hover {
+    background-color: var(--accent-hover-color);
+}
+.add-btn:disabled {
+    background-color: #555;
+    border-color: #555;
+    color: #888;
+    cursor: not-allowed;
+}
+
+
+/* --- YouTube Showcase Section --- */
+.add-video-form {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.video-input {
+    flex-grow: 1;
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--primary-text-color);
+    font-size: 1rem;
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.video-input:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(255, 193, 7, 0.2);
+}
+
+.video-grid {
+    display: grid;
+    /* Increased minmax for larger thumbnails */
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+}
+
+.video-thumbnail-card {
+    position: relative;
+    display: block;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 16px var(--shadow-color);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    border: none;
+    padding: 0;
+    background: transparent;
+    cursor: pointer;
+    text-align: left;
+}
+
+.video-thumbnail-card:hover {
+    transform: scale(1.05);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+}
+
+.video-thumbnail-card img {
+    width: 100%;
+    display: block;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+}
+
+.video-thumbnail-card .play-icon {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.8);
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    transition: all 0.3s ease;
+}
+.video-thumbnail-card .play-icon svg {
+    width: 30px;
+    height: 30px;
+}
+
+
+.video-thumbnail-card:hover .play-icon {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+}
+
+/* --- FIXED: Video Modal Styles --- */
+.video-modal-overlay {
+    position: fixed; /* This is crucial for the overlay */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000; /* High z-index to ensure it's on top */
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    animation: fadeIn 0.3s ease;
+    padding: 2rem;
+    box-sizing: border-box;
+}
+
+.video-modal-content {
+    position: relative;
+    width: 100%;
+    max-width: 1100px; /* Larger max width */
+    aspect-ratio: 16 / 9;
+    background-color: #000;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    transform: scale(0.95);
+    animation: zoomIn 0.3s 0.1s ease forwards;
+    opacity: 0;
+}
+
+
+@keyframes zoomIn {
+    from { 
+        transform: scale(0.9);
+        opacity: 0;
+    }
+    to { 
+        transform: scale(1);
+        opacity: 1;
+     }
+}
+
+.video-modal-content iframe {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.close-modal-btn {
+    position: fixed; /* Fixed to the viewport corner */
+    top: 2rem;
+    right: 2rem;
+    background: rgba(0,0,0,0.3);
+    border: none;
+    color: #fff;
+    font-size: 2.5rem;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    z-index: 10001; /* Must be higher than the content */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    line-height: 1;
+}
+
+.close-modal-btn:hover {
+    transform: scale(1.1) rotate(90deg);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+
+/* --- Coming Soon Section --- */
+.posts-section .coming-soon-overlay {
+    position: relative;
+    filter: blur(4px);
+    opacity: 0.5;
+    pointer-events: none;
+    user-select: none;
+}
+.posts-section textarea {
+     width: 100%;
+    min-height: 80px;
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 0.75rem;
+    color: var(--primary-text-color);
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    margin-bottom: 1rem;
+}
+
+/* --- Responsive Design --- */
+@media (max-width: 768px) {
+    .dashboard-container {
+        padding: 1.5rem;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 2rem;
+    }
+
+    .profile-body {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .add-video-form {
+        flex-direction: column;
+    }
+
+    .close-modal-btn {
+        top: 1rem;
+        right: 1rem;
+        width: 40px;
+        height: 40px;
+        font-size: 2rem;
+    }
 }

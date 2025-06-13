@@ -13,6 +13,10 @@ import BlogPage from './Views/BlogPage';
 import BlogPostPage from './Views/BlogPostPage';
 import ArtistPage from './Views/ArtistPage';
 import MembershipPage from './Views/MembershipPage';
+// --- NEW PAGE IMPORTS ---
+import CommunityPage from './Views/CommunityPage';
+import MarketplacePage from './Views/MarketplacePage';
+
 
 // Import Components
 import Header from './Views/Header';
@@ -48,6 +52,11 @@ function AppContent() {
             <Route path="/blog/:postId" element={<BlogPostPage />} />
             <Route path="/artists/:artistType" element={<ArtistPage />} />
             <Route path="/membership" element={<MembershipPage />} />
+            
+            {/* --- NEW ROUTES ADDED --- */}
+            <Route path="/community" element={<CommunityPage />} />
+            <Route path="/marketplace" element={<MarketplacePage />} />
+
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </main>

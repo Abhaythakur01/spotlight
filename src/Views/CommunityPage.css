@@ -1,0 +1,155 @@
+.community-page {
+    --accent-color: #FFC107;
+    --bg-color: #121212;
+    --card-bg-color: #1a1a1a;
+    --border-color: #2a2a2a;
+    --primary-text: #e0e0e0;
+    --secondary-text: #a0a0a0;
+
+    padding: 8rem 2rem 4rem;
+    background-color: var(--bg-color);
+    color: var(--primary-text);
+    min-height: 100vh;
+}
+
+.community-header {
+    text-align: center;
+    margin-bottom: 4rem;
+}
+
+.community-header h1 {
+    font-size: 3rem;
+    color: #fff;
+    margin-bottom: 0.5rem;
+}
+
+.community-header p {
+    font-size: 1.2rem;
+    color: var(--secondary-text);
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.community-content {
+    max-width: 700px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.create-post-card {
+    background: var(--card-bg-color);
+    padding: 1.5rem;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.create-post-card textarea {
+    width: 100%;
+    background: #252525;
+    border: 1px solid #333;
+    border-radius: 8px;
+    padding: 1rem;
+    color: var(--primary-text);
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical;
+    min-height: 80px;
+    margin-bottom: 1rem;
+}
+
+.create-post-card button {
+    background-color: var(--accent-color);
+    color: var(--bg-color);
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+    float: right;
+    transition: background-color 0.3s;
+}
+
+.create-post-card button:hover {
+    background-color: #ffda6b;
+}
+
+.post-feed {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+
+.post-card {
+    background: var(--card-bg-color);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 1.5rem;
+}
+
+.post-header {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+.post-avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.post-author-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.post-author-name {
+    font-weight: bold;
+    color: #fff;
+}
+
+.post-timestamp {
+    font-size: 0.875rem;
+    color: var(--secondary-text);
+}
+
+.post-text {
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    white-space: pre-wrap;
+}
+
+.post-image {
+    width: 100%;
+    border-radius: 12px;
+    margin-top: 1rem;
+    object-fit: cover;
+}
+
+.post-actions {
+    display: flex;
+    gap: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--border-color);
+    margin-top: 1rem;
+}
+
+.action-btn {
+    background: none;
+    border: none;
+    color: var(--secondary-text);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    transition: color 0.3s;
+}
+
+.action-btn:hover {
+    color: var(--accent-color);
+}
